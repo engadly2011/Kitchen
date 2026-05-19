@@ -655,7 +655,31 @@ footer p+p{margin-top:5px}
 #finalcta p{color:rgba(255,255,255,.8)}
 .fin-cta-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:12px}
 
-/* ── SMOOTH SCROLL PERFORMANCE ── */
+/* ── WHATSAPP FLOAT ── */
+#wa-float{
+  position:fixed;bottom:80px;left:14px;z-index:8998;
+  width:52px;height:52px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.5);
+  cursor:pointer;text-decoration:none;
+  animation:waPulse 2.5s ease-in-out infinite}
+@media(min-width:769px){
+  #wa-float{bottom:24px;left:20px;width:56px;height:56px}}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.5)}
+  50%{box-shadow:0 4px 30px rgba(37,211,102,.8),0 0 0 8px rgba(37,211,102,.15)}}
+#wa-float svg{width:28px;height:28px}
+#wa-float .wa-tooltip{
+  position:absolute;left:64px;top:50%;transform:translateY(-50%);
+  background:#25D366;color:#fff;font-family:'Cairo',sans-serif;
+  font-size:11px;font-weight:700;white-space:nowrap;
+  padding:5px 10px;border-radius:8px;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.15)}
+#wa-float:hover .wa-tooltip{opacity:1}
+
+
 *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img{will-change:auto}
 
@@ -711,6 +735,12 @@ img{will-change:auto}
   </div>
   <button class="sticky-cta ripple-btn" onclick="goto('order')">اطلبي الآن ⚡</button>
 </div>
+
+<!-- WHATSAPP FLOAT BUTTON -->
+<a id="wa-float" href="https://wa.me/447853501734" target="_blank" rel="noopener" aria-label="واتساب">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.563 4.14 1.545 5.875L0 24l6.335-1.525A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.022-1.377l-.36-.214-3.733.979.995-3.638-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+  <span class="wa-tooltip">تواصل معنا</span>
+</a>
 
 <!-- LIVE POPUP -->
 <div id="livepop">
@@ -1216,7 +1246,9 @@ function submitOrder(){
   const nameVal = document.getElementById('fn').value.trim();
   const rawPhone = document.getElementById('fp').value.trim();
   const phone = toWestern(rawPhone.replace(/[^\d٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹]/g,''));
-  const city = document.getElementById('fc').value;
+  const cityEl = document.getElementById('fc');
+  const city = cityEl.options[cityEl.selectedIndex].text;
+  const cityVal = cityEl.value;
   const addr = document.getElementById('fa').value.trim();
   const offerLabels = {1:'عرض فردي - 399 ج', 2:'عرض قطعتين - 699 ج', 3:'عرض 3 قطع - 949 ج'};
   const offerPrices = {1:'399',2:'699',3:'949'};
@@ -1229,7 +1261,7 @@ function submitOrder(){
     return;
   }
 
-  // Disable button + show loading
+  // Disable button + show loading instantly
   const btn = document.getElementById('sub-btn');
   btn.disabled = true;
   btn.textContent = '⏳ جاري تسجيل طلبك...';
@@ -1249,27 +1281,25 @@ function submitOrder(){
     timestamp: new Date().toLocaleString('ar-EG',{timeZone:'Africa/Cairo'}),
     name: nameVal || 'غير محدد',
     phone: phone,
-    city: city || 'غير محدد',
+    city: (cityVal && cityVal !== '') ? city : 'غير محدد',
     address: addr || '',
     offer: offerLabels[curOffer],
     price: offerPrices[curOffer],
     source: document.referrer || 'مباشر'
   };
 
-  // Send to Google Sheets via no-cors fetch
-  fetch(GS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
-  })
-  .then(()=>{
-    onOrderSuccess(payload);
-  })
-  .catch(()=>{
-    // Even on network error, show success (GAS no-cors always throws)
-    onOrderSuccess(payload);
-  });
+  // Show success immediately — don't wait for sheet
+  onOrderSuccess(payload);
+
+  // Send to Google Sheets in background (fire & forget)
+  try {
+    fetch(GS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+  } catch(e){}
 }
 
 function onOrderSuccess(payload){
@@ -1282,8 +1312,34 @@ function onOrderSuccess(payload){
       content_type: 'product'
     });
   }
+
+  // Build WhatsApp message
+  var waMsg = encodeURIComponent(
+    'مرحباً، أنا طلبت ' + payload.offer +
+    '\nالاسم: ' + payload.name +
+    '\nالموبايل: ' + payload.phone +
+    (payload.city !== 'غير محدد' ? '\nالمحافظة: ' + payload.city : '') +
+    (payload.address ? '\nالعنوان: ' + payload.address : '')
+  );
+  var waLink = 'https://wa.me/447853501734?text=' + waMsg;
+
+  // Update success box with WhatsApp button
+  var sucBox = document.getElementById('suc-box');
+  sucBox.innerHTML =
+    '<span style="font-size:60px;display:block;margin-bottom:14px">🎉</span>' +
+    '<h3>تم استلام طلبك!</h3>' +
+    '<p style="margin-top:7px;margin-bottom:20px">هيتواصل معكي فريقنا خلال ساعات لتأكيد الطلب 💚</p>' +
+    '<a href="' + waLink + '" target="_blank" rel="noopener" ' +
+    'style="display:inline-flex;align-items:center;gap:10px;' +
+    'background:#25D366;color:#fff;font-family:Cairo,sans-serif;' +
+    'font-weight:900;font-size:15px;padding:14px 28px;border-radius:14px;' +
+    'text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,.4)">' +
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.563 4.14 1.545 5.875L0 24l6.335-1.525A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.022-1.377l-.36-.214-3.733.979.995-3.638-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>' +
+    'تواصل معنا على واتساب</a>' +
+    '<p style="font-size:11px;color:#9ca3af;margin-top:10px">للاستفسار أو تأكيد الطلب</p>';
+
   document.getElementById('form-box').style.display='none';
-  document.getElementById('suc-box').style.display='block';
+  sucBox.style.display='block';
   goto('order');
 }
 
