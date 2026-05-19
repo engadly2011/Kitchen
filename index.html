@@ -447,6 +447,229 @@ footer p+p{margin-top:5px}
   0%{transform:translateX(0)}
   100%{transform:translateX(-50%)}
 }
+
+/* ═══════════════════════════════════════
+   CRO ENHANCEMENTS - Premium Egyptian Market
+════════════════════════════════════════ */
+
+/* ── RIPPLE EFFECT ── */
+.ripple-btn{position:relative;overflow:hidden}
+.ripple-btn::before{content:'';position:absolute;top:50%;left:50%;
+  width:0;height:0;background:rgba(255,255,255,.25);border-radius:50%;
+  transform:translate(-50%,-50%);transition:width .5s ease,height .5s ease,opacity .5s ease;
+  opacity:1;pointer-events:none}
+.ripple-btn:active::before{width:300px;height:300px;opacity:0}
+
+/* ── STICKY MOBILE CTA - Premium ── */
+#sticky{
+  position:fixed;bottom:0;left:0;right:0;z-index:9000;
+  background:linear-gradient(90deg,#111 0%,#1a1a1a 100%);
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  box-shadow:0 -4px 24px rgba(0,0,0,.5);
+  border-top:1px solid rgba(250,204,21,.15);
+  transform:translateY(100%);animation:slideUp .5s .8s ease forwards}
+@keyframes slideUp{to{transform:translateY(0)}}
+#sticky .sticky-left{display:flex;flex-direction:column;gap:2px}
+#sticky .sticky-price{color:#facc15;font-weight:900;font-size:17px;line-height:1}
+#sticky .sticky-sub{color:rgba(255,255,255,.5);font-size:10px}
+#sticky .sticky-cta{
+  background:linear-gradient(90deg,#facc15,#f97316);
+  color:#000;font-weight:900;font-size:14px;
+  padding:12px 20px;border-radius:12px;border:none;cursor:pointer;
+  white-space:nowrap;position:relative;overflow:hidden;
+  animation:pulseGlow 2.2s ease-in-out infinite}
+#sticky .sticky-cta::after{content:'';position:absolute;top:-50%;left:-80%;
+  width:45%;height:200%;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);animation:shine 2s infinite}
+
+/* ── VIEWERS COUNTER - FOMO ── */
+#viewers-bar{
+  background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:8px 14px;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;color:#fff;font-weight:700;
+  margin-bottom:16px;position:relative}
+#viewers-bar .v-dot{
+  width:8px;height:8px;background:#22c55e;border-radius:50%;
+  flex-shrink:0;box-shadow:0 0 6px #22c55e;
+  animation:pulse-dot 1.5s ease-in-out infinite}
+@keyframes pulse-dot{
+  0%,100%{box-shadow:0 0 6px #22c55e}
+  50%{box-shadow:0 0 14px #22c55e,0 0 28px rgba(34,197,94,.5)}}
+#viewers-bar strong{color:#facc15}
+
+/* ── STOCK COUNTER ── */
+.stock-bar{
+  background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);
+  border-radius:10px;padding:10px 14px;
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px}
+.stock-bar .stock-label{font-size:12px;font-weight:700;color:#ef4444;flex-shrink:0}
+.stock-bar .stock-track{flex:1;background:rgba(239,68,68,.15);border-radius:20px;height:7px;overflow:hidden}
+.stock-bar .stock-fill{height:100%;background:linear-gradient(90deg,#ef4444,#f97316);
+  border-radius:20px;transition:width 1s ease;width:73%}
+.stock-bar .stock-count{font-size:11px;color:#ef4444;font-weight:900;flex-shrink:0}
+
+/* ── COUNTDOWN ── */
+.countdown-wrap{
+  background:linear-gradient(135deg,#0f0f1a,#1a1a2e);border:1px solid rgba(250,204,21,.25);
+  border-radius:12px;padding:10px 16px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-bottom:18px;text-align:center}
+.countdown-wrap .cd-label{color:#fde68a;font-size:11px;font-weight:700;margin-bottom:3px}
+.countdown-wrap .cd-num{
+  font-size:26px;font-weight:900;color:#facc15;line-height:1;
+  text-shadow:0 0 20px rgba(250,204,21,.5);font-variant-numeric:tabular-nums}
+.countdown-wrap .cd-block{display:flex;flex-direction:column;align-items:center}
+.countdown-wrap .cd-sep{color:#f97316;font-size:20px;font-weight:900;margin-top:-6px;line-height:1}
+
+/* ── LIVE POPUP - Enhanced ── */
+#livepop{
+  position:fixed;bottom:80px;right:10px;z-index:8999;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-radius:16px;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 8px 32px rgba(0,0,0,.18);
+  border:1px solid rgba(250,204,21,.3);
+  max-width:240px;animation:popIn .4s ease;
+  transition:opacity .3s,transform .3s}
+#livepop.hiding{opacity:0;transform:translateX(30px)}
+#livepop .av{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#facc15,#f97316);
+  display:flex;align-items:center;justify-content:center;
+  color:#000;font-weight:900;font-size:14px;
+  box-shadow:0 4px 12px rgba(249,115,22,.4)}
+#livepop .pname{font-weight:900;color:#111;font-size:11px;margin-bottom:1px}
+#livepop .pact{color:#555;font-size:10px}
+#livepop .ptim{color:#16a34a;font-size:10px;font-weight:700;margin-top:2px;display:flex;align-items:center;gap:3px}
+
+/* ── FLOATING LABELS ── */
+.fg-float{position:relative;margin-bottom:16px}
+.fg-float input,.fg-float select{
+  width:100%;padding:20px 14px 8px;
+  border:2px solid #e5e7eb;border-radius:12px;
+  font-family:'Cairo',sans-serif;font-size:14px;color:#111;
+  background:#fff;transition:border-color .2s,box-shadow .2s;
+  appearance:none;-webkit-appearance:none}
+.fg-float input:focus,.fg-float select:focus{
+  border-color:#facc15;outline:none;
+  box-shadow:0 0 0 3px rgba(250,204,21,.15)}
+.fg-float label{
+  position:absolute;top:14px;right:14px;
+  font-size:13px;font-weight:700;color:#9ca3af;
+  transition:all .2s ease;pointer-events:none;background:transparent}
+.fg-float input:focus+label,
+.fg-float input:not(:placeholder-shown)+label,
+.fg-float select:focus+label,
+.fg-float.has-value label{
+  top:6px;font-size:10px;color:#f97316;font-weight:800}
+.fg-float input:focus{padding-top:20px}
+.fg-float .success-icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  display:none;color:#22c55e;font-size:16px}
+.fg-float.valid .success-icon{display:block}
+.fg-float.valid input{border-color:#22c55e}
+
+/* ── COD BADGE - Enhanced ── */
+.cod-trust{
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1.5px solid #86efac;border-radius:14px;
+  padding:14px;display:grid;grid-template-columns:1fr 1fr;
+  gap:8px;margin-bottom:16px}
+.cod-trust-item{display:flex;align-items:center;gap:7px}
+.cod-trust-item .icon{font-size:18px;flex-shrink:0}
+.cod-trust-item .text{font-size:11px;font-weight:700;color:#15803d}
+
+/* ── TRUST SECTION - Inside Form ── */
+.trust-badges-row{
+  display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+  margin:12px 0 6px}
+.trust-badge-pill{
+  background:#fff;border:1px solid #e5e7eb;border-radius:20px;
+  padding:5px 12px;font-size:10px;font-weight:700;color:#374151;
+  display:flex;align-items:center;gap:4px;
+  box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+/* ── SOCIAL PROOF - WhatsApp Style ── */
+.wa-msg-thread{display:flex;flex-direction:column;gap:10px}
+.wa-msg{display:flex;align-items:flex-start;gap:9px}
+.wa-msg.sent{flex-direction:row-reverse}
+.wa-msg .wa-bubble{
+  background:#fff;border-radius:14px 14px 14px 4px;
+  padding:10px 12px;max-width:85%;
+  box-shadow:0 2px 6px rgba(0,0,0,.07);
+  font-size:12px;color:#374151;line-height:1.65;
+  position:relative}
+.wa-msg.sent .wa-bubble{
+  background:#e7f8d7;border-radius:14px 14px 4px 14px}
+.wa-msg .wa-time{font-size:9px;color:#9ca3af;margin-top:4px;
+  display:flex;align-items:center;gap:3px}
+.wa-msg.sent .wa-time{justify-content:flex-end}
+.wa-msg .wa-av{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#facc15,#f97316);
+  display:flex;align-items:center;justify-content:center;
+  color:#000;font-weight:900;font-size:12px}
+.wa-msg.sent .wa-av{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
+.wa-stars-inline{color:#facc15;font-size:11px}
+
+/* ── CARD HOVER LIFT ── */
+.rev-card{transition:transform .25s ease,box-shadow .25s ease}
+.rev-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+.uc-card{transition:transform .22s ease,border-color .22s ease,background .22s ease}
+.step-card{transition:transform .22s ease,box-shadow .22s ease}
+.step-card:hover{transform:translateY(-7px);box-shadow:0 16px 40px rgba(250,204,21,.2)}
+
+/* ── HERO GLOW ENHANCEMENT ── */
+.hero-img-glow{
+  position:absolute;top:50%;left:50%;
+  width:280px;height:280px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse,rgba(250,204,21,.18) 0%,transparent 70%);
+  pointer-events:none;animation:glowPulse 3s ease-in-out infinite;z-index:0}
+@keyframes glowPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}
+  50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+
+/* ── FINAL CTA BOOST ── */
+#finalcta{
+  background:linear-gradient(135deg,#0a0a12 0%,#141424 50%,#0a0a12 100%);
+  border-top:1px solid rgba(250,204,21,.2)}
+#finalcta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(250,204,21,.12) 0%,transparent 60%)}
+.fin-btn{
+  background:linear-gradient(90deg,#facc15,#f97316);
+  color:#000;font-family:'Cairo',sans-serif;
+  font-weight:900;font-size:20px;padding:18px 44px;border-radius:18px;
+  border:none;cursor:pointer;display:inline-block;
+  box-shadow:0 0 40px rgba(250,204,21,.45),0 8px 32px rgba(0,0,0,.3);
+  position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.fin-btn:hover{transform:translateY(-3px);
+  box-shadow:0 0 60px rgba(250,204,21,.65),0 12px 40px rgba(0,0,0,.4)}
+#finalcta h2{color:#fff;text-shadow:0 2px 20px rgba(250,204,21,.3)}
+#finalcta p{color:rgba(255,255,255,.8)}
+.fin-cta-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:12px}
+
+/* ── SMOOTH SCROLL PERFORMANCE ── */
+*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{will-change:auto}
+
+/* ── ANNOUNCEMENT BAR - Update ── */
+#announce-bar{
+  background:linear-gradient(90deg,#0f2340 0%,#1e3a5f 50%,#0f2340 100%);
+  color:#fff;font-size:12px;font-weight:700;
+  padding:7px 0;text-align:center;overflow:hidden;
+  position:relative;z-index:200;letter-spacing:.3px}
+
+/* ── MOBILE ONLY ── */
+@media(min-width:769px){
+  #sticky{display:none}
+}
 </style>
 </head>
 <body>
@@ -480,19 +703,22 @@ footer p+p{margin-top:5px}
   </div>
 </div>
 
-<!-- STICKY -->
+<!-- STICKY MOBILE CTA -->
 <div id="sticky">
-  <div><p>💳 الدفع عند الاستلام</p><p>شحن سريع لجميع المحافظات 🚚</p></div>
-  <button onclick="goto('order')">اطلبي الآن ⚡</button>
+  <div class="sticky-left">
+    <div class="sticky-price">🔥 اطلبي الآن — 399ج فقط</div>
+    <div class="sticky-sub">💳 الدفع عند الاستلام • شحن مجاني</div>
+  </div>
+  <button class="sticky-cta ripple-btn" onclick="goto('order')">اطلبي الآن ⚡</button>
 </div>
 
 <!-- LIVE POPUP -->
 <div id="livepop">
   <div class="av" id="pop-av">أ</div>
-  <div>
+  <div style="flex:1;min-width:0">
     <p class="pname" id="pop-n">أم محمد - القاهرة</p>
-    <p class="pact">طلبت باقة التنظيف السحرية</p>
-    <p class="ptim" id="pop-t">قبل دقيقتين 🛒</p>
+    <p class="pact" id="pop-act">طلبت باقة التنظيف السحرية</p>
+    <p class="ptim" id="pop-t">🟢 قبل دقيقتين 🛒</p>
   </div>
 </div>
 
@@ -512,6 +738,11 @@ footer p+p{margin-top:5px}
 
   <h1>ودّعي الدهون<br><em>المحروقة نهائيًا ✨</em></h1>
   <p class="sub">باقة تنظيف المطبخ السحرية لتنظيف الدهون والبقع الصعبة بسهولة ومن غير مجهود</p>
+
+  <div id="viewers-bar">
+    <div class="v-dot"></div>
+    <span><strong id="viewers-count">12</strong> شخص بيشوف المنتج دلوقتي</span>
+  </div>
 
   <!-- hero product image - full width -->
   <div class="hero-main-img-wrap">
@@ -777,6 +1008,31 @@ footer p+p{margin-top:5px}
         <div class="ord-total"><span>الإجمالي:</span><span id="tot" style="color:#f97316">399 جنيه</span></div>
         <p class="cod-note">💳 الدفع عند الاستلام - مفيش مقدم!</p>
       </div>
+      <!-- COD Trust -->
+      <div class="cod-trust">
+        <div class="cod-trust-item"><span class="icon">💳</span><span class="text">الدفع عند الاستلام</span></div>
+        <div class="cod-trust-item"><span class="icon">🔍</span><span class="text">معاينة قبل الدفع</span></div>
+        <div class="cod-trust-item"><span class="icon">🚚</span><span class="text">شحن مجاني</span></div>
+        <div class="cod-trust-item"><span class="icon">↩</span><span class="text">ضمان 7 أيام</span></div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="countdown-wrap">
+        <span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:700">⏰ العرض ينتهي خلال:</span>
+        <div class="cd-block"><div class="cd-num" id="cd-h">00</div><div class="cd-label">ساعة</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><div class="cd-num" id="cd-m">23</div><div class="cd-label">دقيقة</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><div class="cd-num" id="cd-s">47</div><div class="cd-label">ثانية</div></div>
+      </div>
+
+      <!-- Stock counter -->
+      <div class="stock-bar">
+        <span class="stock-label">📦 المخزون:</span>
+        <div class="stock-track"><div class="stock-fill" id="stock-fill"></div></div>
+        <span class="stock-count" id="stock-text">27 قطعة فقط</span>
+      </div>
+
       <div class="fg">
         <label>الاسم الكامل</label>
         <input type="text" id="fn" placeholder="مثال: فاطمة أحمد" autocomplete="name">
@@ -832,9 +1088,10 @@ footer p+p{margin-top:5px}
   <div class="sparkle-dot" style="top:12%;right:7%;font-size:22px;animation-delay:0s">✨</div>
   <div class="sparkle-dot" style="bottom:18%;left:6%;font-size:18px;animation-delay:.8s">💫</div>
   <div class="container" style="position:relative;z-index:1">
-    <h2>خلّي مطبخك يلمع<br>من أول استخدام ✨</h2>
+    <h2 style="font-size:clamp(26px,7vw,44px)">خلّي مطبخك يلمع<br>من أول استخدام ✨</h2>
     <p>انضمي لأكثر من 10,000 ست بيت مصرية سعيدة<br>بباقة التنظيف السحرية</p>
-    <button class="fin-btn" onclick="goto('order')">اطلبي الآن 🛒</button>
+    <button class="fin-btn ripple-btn" onclick="goto('order')" style="font-size:22px;padding:20px 50px">اطلبي الآن 🛒</button>
+    <div class="fin-cta-sub">⚡ سعر مخفض لفترة محدودة — متفوتيهاش</div>
     <div class="fin-badges">
       <span>💳 دفع عند الاستلام</span><span>•</span>
       <span>🚚 شحن سريع</span><span>•</span>
@@ -1103,6 +1360,127 @@ setInterval(()=>{
     pop.style.opacity='1';
   },380);
 },4200);
+
+// ── CRO ENHANCEMENTS JS ──
+
+// Countdown Timer
+(function(){
+  // Random end time 23-47 mins from now
+  var mins = 23 + Math.floor(Math.random()*24);
+  var end = Date.now() + mins*60*1000;
+  function tick(){
+    var left = Math.max(0, end - Date.now());
+    var h = Math.floor(left/3600000);
+    var m = Math.floor((left%3600000)/60000);
+    var s = Math.floor((left%60000)/1000);
+    var hEl=document.getElementById('cd-h'),mEl=document.getElementById('cd-m'),sEl=document.getElementById('cd-s');
+    if(hEl) hEl.textContent=String(h).padStart(2,'0');
+    if(mEl) mEl.textContent=String(m).padStart(2,'0');
+    if(sEl) sEl.textContent=String(s).padStart(2,'0');
+    if(left>0) setTimeout(tick,1000);
+  }
+  tick();
+})();
+
+// Stock Counter - decreases slowly
+(function(){
+  var stock = 27 - Math.floor(Math.random()*5);
+  var fillEl = document.getElementById('stock-fill');
+  var textEl = document.getElementById('stock-text');
+  function updateStock(){
+    if(textEl) textEl.textContent = stock + ' قطعة فقط';
+    if(fillEl){
+      var pct = Math.max(20, Math.min(85, (stock/40)*100));
+      fillEl.style.width = pct + '%';
+    }
+  }
+  updateStock();
+  setInterval(function(){
+    if(stock > 5 && Math.random() < 0.3){
+      stock--;
+      updateStock();
+    }
+  }, 45000);
+})();
+
+// Viewers Counter - fluctuates realistically
+(function(){
+  var base = 7 + Math.floor(Math.random()*8);
+  var el = document.getElementById('viewers-count');
+  function update(){
+    var delta = Math.floor(Math.random()*3)-1;
+    base = Math.max(5, Math.min(24, base+delta));
+    if(el) el.textContent = base;
+    setTimeout(update, 4000 + Math.random()*6000);
+  }
+  update();
+})();
+
+// Enhanced FOMO Popup
+var orders2=[
+  {n:'سارة م.',c:'القاهرة',t:'قبل دقيقة'},
+  {n:'أم خالد',c:'الجيزة',t:'قبل 3 دقايق'},
+  {n:'منى ع.',c:'الإسكندرية',t:'قبل 5 دقايق'},
+  {n:'نورا ف.',c:'المنصورة',t:'قبل 7 دقايق'},
+  {n:'هنا س.',c:'طنطا',t:'قبل 10 دقايق'},
+  {n:'أم محمد',c:'أسيوط',t:'قبل 12 دقيقة'},
+  {n:'فاطمة ر.',c:'المنيا',t:'قبل 15 دقيقة'},
+  {n:'دينا ح.',c:'بني سويف',t:'قبل 18 دقيقة'},
+];
+var acts2=['اشترت باقة التنظيف ✅','طلبت عرض القطعتين 🔥','أكدت طلبها الآن ⚡'];
+var pi2=0;
+function showPop2(){
+  var pop=document.getElementById('livepop');
+  if(!pop) return;
+  pop.classList.remove('hiding');
+  var o=orders2[pi2%orders2.length];
+  pi2++;
+  var avEl=document.getElementById('pop-av');
+  var nEl=document.getElementById('pop-n');
+  var actEl=document.getElementById('pop-act');
+  var tEl=document.getElementById('pop-t');
+  if(avEl) avEl.textContent=o.n[0];
+  if(nEl) nEl.textContent=o.n+' — '+o.c;
+  if(actEl) actEl.textContent=acts2[Math.floor(Math.random()*acts2.length)];
+  if(tEl) tEl.textContent='🟢 '+o.t;
+  setTimeout(function(){pop.classList.add('hiding')},4500);
+  setTimeout(showPop2, 6000+Math.random()*5000);
+}
+setTimeout(showPop2, 3500);
+
+// Floating Labels - detect value
+document.querySelectorAll('.fg-float input, .fg-float select').forEach(function(el){
+  function check(){
+    var parent = el.closest('.fg-float');
+    if(!parent) return;
+    var hasVal = el.value && el.value.trim() !== '' && el.value !== ' ';
+    if(hasVal) parent.classList.add('has-value');
+    else parent.classList.remove('has-value');
+    // Phone validation for green check
+    if(el.id==='fp'){
+      var v = el.value.trim();
+      if(v.length===11) parent.classList.add('valid');
+      else parent.classList.remove('valid');
+    }
+    // Name validation
+    if(el.id==='fn'){
+      if(el.value.trim().length>1) parent.classList.add('valid');
+      else parent.classList.remove('valid');
+    }
+  }
+  el.addEventListener('input',check);
+  el.addEventListener('change',check);
+  check();
+});
+
+// Ripple effect on buttons
+document.querySelectorAll('.ripple-btn').forEach(function(btn){
+  btn.addEventListener('click',function(e){
+    btn.classList.remove('rippling');
+    void btn.offsetWidth;
+    btn.classList.add('rippling');
+    setTimeout(function(){btn.classList.remove('rippling')},600);
+  });
+});
+
 </script>
-</body>
-</html>
